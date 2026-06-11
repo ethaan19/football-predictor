@@ -216,7 +216,7 @@ Returns all available leagues with their teams.
 
 ## 👤 Author
 
-**Ethan Macias** — Master's in AI + Big Data at Tajamar (Microsoft Partner)
+**Ethan Macias**
 
 - 🌐 LinkedIn: [https://www.linkedin.com/in/ethan-macias-termenon-b99a79338/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BHyTNUHDhTkWj4qNTEeU%2BOg%3D%3D](https://linkedin.com)
 - 💻 GitHub: [@ethaan19](https://github.com)

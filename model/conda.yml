@@ -1,0 +1,14 @@
+name: football-predictor-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - xgboost==2.0.3
+    - scikit-learn==1.4.2
+    - numpy==1.26.4
+    - pandas==2.2.1
+    - azureml-core==1.56.0
+    - inference-schema==1.7.0

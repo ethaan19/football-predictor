@@ -1,0 +1,992 @@
+{
+  "Real Betis Balompié": {
+    "name": "Real Betis Balompié",
+    "league": "La Liga",
+    "elo": 1587.8,
+    "form_pts": 1.6,
+    "form_gd": 0.3,
+    "goals_avg": 1.6,
+    "conceded_avg": 1.3
+  },
+  "Girona FC": {
+    "name": "Girona FC",
+    "league": "La Liga",
+    "elo": 1448.4,
+    "form_pts": 0.7,
+    "form_gd": -0.4,
+    "goals_avg": 0.8,
+    "conceded_avg": 1.2
+  },
+  "Athletic Club": {
+    "name": "Athletic Club",
+    "league": "La Liga",
+    "elo": 1472.4,
+    "form_pts": 1.0,
+    "form_gd": -0.5,
+    "goals_avg": 1.3,
+    "conceded_avg": 1.8
+  },
+  "Getafe CF": {
+    "name": "Getafe CF",
+    "league": "La Liga",
+    "elo": 1498.8,
+    "form_pts": 1.6,
+    "form_gd": 0.1,
+    "goals_avg": 0.9,
+    "conceded_avg": 0.8
+  },
+  "Manchester United FC": {
+    "name": "Manchester United FC",
+    "league": "Premier League",
+    "elo": 1637.8,
+    "form_pts": 2.0,
+    "form_gd": 0.7,
+    "goals_avg": 1.9,
+    "conceded_avg": 1.2
+  },
+  "Fulham FC": {
+    "name": "Fulham FC",
+    "league": "Premier League",
+    "elo": 1514.1,
+    "form_pts": 1.2,
+    "form_gd": -0.2,
+    "goals_avg": 0.7,
+    "conceded_avg": 0.9
+  },
+  "UD Las Palmas": {
+    "name": "UD Las Palmas",
+    "league": "La Liga",
+    "elo": 1365.3,
+    "form_pts": 0.7,
+    "form_gd": -0.6,
+    "goals_avg": 0.8,
+    "conceded_avg": 1.4
+  },
+  "Sevilla FC": {
+    "name": "Sevilla FC",
+    "league": "La Liga",
+    "elo": 1450.6,
+    "form_pts": 1.2,
+    "form_gd": -0.4,
+    "goals_avg": 0.9,
+    "conceded_avg": 1.3
+  },
+  "RC Celta de Vigo": {
+    "name": "RC Celta de Vigo",
+    "league": "La Liga",
+    "elo": 1534.9,
+    "form_pts": 1.3,
+    "form_gd": -0.2,
+    "goals_avg": 1.5,
+    "conceded_avg": 1.7
+  },
+  "Deportivo Alavés": {
+    "name": "Deportivo Alavés",
+    "league": "La Liga",
+    "elo": 1480.2,
+    "form_pts": 1.5,
+    "form_gd": 0.0,
+    "goals_avg": 1.8,
+    "conceded_avg": 1.8
+  },
+  "Le Havre AC": {
+    "name": "Le Havre AC",
+    "league": "Ligue 1",
+    "elo": 1455.6,
+    "form_pts": 0.9,
+    "form_gd": -0.2,
+    "goals_avg": 1.2,
+    "conceded_avg": 1.4
+  },
+  "Paris Saint-Germain FC": {
+    "name": "Paris Saint-Germain FC",
+    "league": "Ligue 1",
+    "elo": 1701.7,
+    "form_pts": 1.9,
+    "form_gd": 1.1,
+    "goals_avg": 2.1,
+    "conceded_avg": 1.0
+  },
+  "Ipswich Town FC": {
+    "name": "Ipswich Town FC",
+    "league": "Premier League",
+    "elo": 1321.1,
+    "form_pts": 0.5,
+    "form_gd": -1.4,
+    "goals_avg": 1.0,
+    "conceded_avg": 2.4
+  },
+  "Liverpool FC": {
+    "name": "Liverpool FC",
+    "league": "Premier League",
+    "elo": 1566.8,
+    "form_pts": 1.2,
+    "form_gd": 0.0,
+    "goals_avg": 1.6,
+    "conceded_avg": 1.6
+  },
+  "Arsenal FC": {
+    "name": "Arsenal FC",
+    "league": "Premier League",
+    "elo": 1713.2,
+    "form_pts": 2.4,
+    "form_gd": 0.9,
+    "goals_avg": 1.5,
+    "conceded_avg": 0.6
+  },
+  "Wolverhampton Wanderers FC": {
+    "name": "Wolverhampton Wanderers FC",
+    "league": "Premier League",
+    "elo": 1370.6,
+    "form_pts": 1.0,
+    "form_gd": -0.8,
+    "goals_avg": 0.9,
+    "conceded_avg": 1.7
+  },
+  "Everton FC": {
+    "name": "Everton FC",
+    "league": "Premier League",
+    "elo": 1491.8,
+    "form_pts": 0.9,
+    "form_gd": -0.2,
+    "goals_avg": 1.5,
+    "conceded_avg": 1.7
+  },
+  "Brighton & Hove Albion FC": {
+    "name": "Brighton & Hove Albion FC",
+    "league": "Premier League",
+    "elo": 1534.3,
+    "form_pts": 1.6,
+    "form_gd": 0.3,
+    "goals_avg": 1.4,
+    "conceded_avg": 1.1
+  },
+  "Newcastle United FC": {
+    "name": "Newcastle United FC",
+    "league": "Premier League",
+    "elo": 1504.2,
+    "form_pts": 1.3,
+    "form_gd": 0.0,
+    "goals_avg": 1.3,
+    "conceded_avg": 1.3
+  },
+  "Southampton FC": {
+    "name": "Southampton FC",
+    "league": "Premier League",
+    "elo": 1277.5,
+    "form_pts": 0.3,
+    "form_gd": -1.2,
+    "goals_avg": 0.6,
+    "conceded_avg": 1.8
+  },
+  "Nottingham Forest FC": {
+    "name": "Nottingham Forest FC",
+    "league": "Premier League",
+    "elo": 1515.7,
+    "form_pts": 1.7,
+    "form_gd": 1.2,
+    "goals_avg": 2.2,
+    "conceded_avg": 1.0
+  },
+  "AFC Bournemouth": {
+    "name": "AFC Bournemouth",
+    "league": "Premier League",
+    "elo": 1603.4,
+    "form_pts": 1.8,
+    "form_gd": 0.6,
+    "goals_avg": 1.4,
+    "conceded_avg": 0.8
+  },
+  "West Ham United FC": {
+    "name": "West Ham United FC",
+    "league": "Premier League",
+    "elo": 1471.2,
+    "form_pts": 1.4,
+    "form_gd": 0.1,
+    "goals_avg": 1.2,
+    "conceded_avg": 1.1
+  },
+  "Aston Villa FC": {
+    "name": "Aston Villa FC",
+    "league": "Premier League",
+    "elo": 1584.3,
+    "form_pts": 1.4,
+    "form_gd": -0.1,
+    "goals_avg": 1.8,
+    "conceded_avg": 1.9
+  },
+  "AS Monaco FC": {
+    "name": "AS Monaco FC",
+    "league": "Ligue 1",
+    "elo": 1569.7,
+    "form_pts": 1.7,
+    "form_gd": 0.2,
+    "goals_avg": 2.0,
+    "conceded_avg": 1.8
+  },
+  "AS Saint-Étienne": {
+    "name": "AS Saint-Étienne",
+    "league": "Ligue 1",
+    "elo": 1396.2,
+    "form_pts": 0.8,
+    "form_gd": -1.0,
+    "goals_avg": 1.4,
+    "conceded_avg": 2.4
+  },
+  "Stade de Reims": {
+    "name": "Stade de Reims",
+    "league": "Ligue 1",
+    "elo": 1399.4,
+    "form_pts": 1.1,
+    "form_gd": -0.2,
+    "goals_avg": 0.7,
+    "conceded_avg": 0.9
+  },
+  "Lille OSC": {
+    "name": "Lille OSC",
+    "league": "Ligue 1",
+    "elo": 1619.9,
+    "form_pts": 2.1,
+    "form_gd": 0.9,
+    "goals_avg": 1.5,
+    "conceded_avg": 0.6
+  },
+  "Genoa CFC": {
+    "name": "Genoa CFC",
+    "league": "Serie A",
+    "elo": 1461.8,
+    "form_pts": 1.1,
+    "form_gd": -0.4,
+    "goals_avg": 0.7,
+    "conceded_avg": 1.1
+  },
+  "FC Internazionale Milano": {
+    "name": "FC Internazionale Milano",
+    "league": "Serie A",
+    "elo": 1735.9,
+    "form_pts": 2.0,
+    "form_gd": 1.2,
+    "goals_avg": 2.5,
+    "conceded_avg": 1.3
+  },
+  "Parma Calcio 1913": {
+    "name": "Parma Calcio 1913",
+    "league": "Serie A",
+    "elo": 1490.8,
+    "form_pts": 1.1,
+    "form_gd": -0.6,
+    "goals_avg": 0.8,
+    "conceded_avg": 1.4
+  },
+  "ACF Fiorentina": {
+    "name": "ACF Fiorentina",
+    "league": "Serie A",
+    "elo": 1528.2,
+    "form_pts": 1.7,
+    "form_gd": 0.3,
+    "goals_avg": 1.1,
+    "conceded_avg": 0.8
+  },
+  "Empoli FC": {
+    "name": "Empoli FC",
+    "league": "Serie A",
+    "elo": 1372.8,
+    "form_pts": 0.9,
+    "form_gd": -0.4,
+    "goals_avg": 1.0,
+    "conceded_avg": 1.4
+  },
+  "AC Monza": {
+    "name": "AC Monza",
+    "league": "Serie A",
+    "elo": 1289.3,
+    "form_pts": 0.4,
+    "form_gd": -1.6,
+    "goals_avg": 0.5,
+    "conceded_avg": 2.1
+  },
+  "AC Milan": {
+    "name": "AC Milan",
+    "league": "Serie A",
+    "elo": 1583.0,
+    "form_pts": 1.0,
+    "form_gd": -0.6,
+    "goals_avg": 0.9,
+    "conceded_avg": 1.5
+  },
+  "Torino FC": {
+    "name": "Torino FC",
+    "league": "Serie A",
+    "elo": 1470.0,
+    "form_pts": 1.5,
+    "form_gd": 0.2,
+    "goals_avg": 1.6,
+    "conceded_avg": 1.4
+  },
+  "Stade Brestois 29": {
+    "name": "Stade Brestois 29",
+    "league": "Ligue 1",
+    "elo": 1462.8,
+    "form_pts": 0.6,
+    "form_gd": -1.0,
+    "goals_avg": 1.1,
+    "conceded_avg": 2.1
+  },
+  "Olympique de Marseille": {
+    "name": "Olympique de Marseille",
+    "league": "Ligue 1",
+    "elo": 1575.7,
+    "form_pts": 1.6,
+    "form_gd": 0.0,
+    "goals_avg": 1.2,
+    "conceded_avg": 1.2
+  },
+  "CA Osasuna": {
+    "name": "CA Osasuna",
+    "league": "La Liga",
+    "elo": 1442.8,
+    "form_pts": 0.8,
+    "form_gd": -0.4,
+    "goals_avg": 1.1,
+    "conceded_avg": 1.5
+  },
+  "CD Leganés": {
+    "name": "CD Leganés",
+    "league": "La Liga",
+    "elo": 1451.3,
+    "form_pts": 1.3,
+    "form_gd": 0.0,
+    "goals_avg": 1.3,
+    "conceded_avg": 1.3
+  },
+  "Valencia CF": {
+    "name": "Valencia CF",
+    "league": "La Liga",
+    "elo": 1538.3,
+    "form_pts": 1.7,
+    "form_gd": 0.3,
+    "goals_avg": 1.6,
+    "conceded_avg": 1.3
+  },
+  "FC Barcelona": {
+    "name": "FC Barcelona",
+    "league": "La Liga",
+    "elo": 1761.5,
+    "form_pts": 2.4,
+    "form_gd": 1.0,
+    "goals_avg": 1.8,
+    "conceded_avg": 0.8
+  },
+  "Brentford FC": {
+    "name": "Brentford FC",
+    "league": "Premier League",
+    "elo": 1537.3,
+    "form_pts": 1.0,
+    "form_gd": -0.1,
+    "goals_avg": 1.1,
+    "conceded_avg": 1.2
+  },
+  "Crystal Palace FC": {
+    "name": "Crystal Palace FC",
+    "league": "Premier League",
+    "elo": 1480.2,
+    "form_pts": 1.0,
+    "form_gd": -0.6,
+    "goals_avg": 1.1,
+    "conceded_avg": 1.7
+  },
+  "Chelsea FC": {
+    "name": "Chelsea FC",
+    "league": "Premier League",
+    "elo": 1505.4,
+    "form_pts": 0.7,
+    "form_gd": -1.0,
+    "goals_avg": 0.9,
+    "conceded_avg": 1.9
+  },
+  "Manchester City FC": {
+    "name": "Manchester City FC",
+    "league": "Premier League",
+    "elo": 1681.0,
+    "form_pts": 1.9,
+    "form_gd": 1.0,
+    "goals_avg": 2.0,
+    "conceded_avg": 1.0
+  },
+  "Bologna FC 1909": {
+    "name": "Bologna FC 1909",
+    "league": "Serie A",
+    "elo": 1545.6,
+    "form_pts": 1.7,
+    "form_gd": 0.0,
+    "goals_avg": 1.2,
+    "conceded_avg": 1.2
+  },
+  "Udinese Calcio": {
+    "name": "Udinese Calcio",
+    "league": "Serie A",
+    "elo": 1489.6,
+    "form_pts": 1.4,
+    "form_gd": 0.5,
+    "goals_avg": 1.2,
+    "conceded_avg": 0.7
+  },
+  "Hellas Verona FC": {
+    "name": "Hellas Verona FC",
+    "league": "Serie A",
+    "elo": 1334.2,
+    "form_pts": 0.3,
+    "form_gd": -0.9,
+    "goals_avg": 0.3,
+    "conceded_avg": 1.2
+  },
+  "SSC Napoli": {
+    "name": "SSC Napoli",
+    "league": "Serie A",
+    "elo": 1651.8,
+    "form_pts": 2.0,
+    "form_gd": 0.8,
+    "goals_avg": 1.5,
+    "conceded_avg": 0.7
+  },
+  "Cagliari Calcio": {
+    "name": "Cagliari Calcio",
+    "league": "Serie A",
+    "elo": 1468.1,
+    "form_pts": 1.3,
+    "form_gd": -0.5,
+    "goals_avg": 1.0,
+    "conceded_avg": 1.5
+  },
+  "AS Roma": {
+    "name": "AS Roma",
+    "league": "Serie A",
+    "elo": 1652.2,
+    "form_pts": 2.2,
+    "form_gd": 1.1,
+    "goals_avg": 2.1,
+    "conceded_avg": 1.0
+  },
+  "SS Lazio": {
+    "name": "SS Lazio",
+    "league": "Serie A",
+    "elo": 1553.0,
+    "form_pts": 1.7,
+    "form_gd": 0.1,
+    "goals_avg": 1.3,
+    "conceded_avg": 1.2
+  },
+  "Venezia FC": {
+    "name": "Venezia FC",
+    "league": "Serie A",
+    "elo": 1398.2,
+    "form_pts": 1.0,
+    "form_gd": -0.5,
+    "goals_avg": 0.9,
+    "conceded_avg": 1.4
+  },
+  "Stade Rennais FC 1901": {
+    "name": "Stade Rennais FC 1901",
+    "league": "Ligue 1",
+    "elo": 1581.6,
+    "form_pts": 1.9,
+    "form_gd": 0.6,
+    "goals_avg": 2.1,
+    "conceded_avg": 1.5
+  },
+  "Olympique Lyonnais": {
+    "name": "Olympique Lyonnais",
+    "league": "Ligue 1",
+    "elo": 1581.4,
+    "form_pts": 1.5,
+    "form_gd": 0.0,
+    "goals_avg": 1.4,
+    "conceded_avg": 1.4
+  },
+  "Angers SCO": {
+    "name": "Angers SCO",
+    "league": "Ligue 1",
+    "elo": 1423.0,
+    "form_pts": 0.7,
+    "form_gd": -1.1,
+    "goals_avg": 0.7,
+    "conceded_avg": 1.8
+  },
+  "Racing Club de Lens": {
+    "name": "Racing Club de Lens",
+    "league": "Ligue 1",
+    "elo": 1626.3,
+    "form_pts": 1.7,
+    "form_gd": 0.7,
+    "goals_avg": 2.1,
+    "conceded_avg": 1.4
+  },
+  "Toulouse FC": {
+    "name": "Toulouse FC",
+    "league": "Ligue 1",
+    "elo": 1514.6,
+    "form_pts": 1.3,
+    "form_gd": -0.5,
+    "goals_avg": 1.4,
+    "conceded_avg": 1.9
+  },
+  "FC Nantes": {
+    "name": "FC Nantes",
+    "league": "Ligue 1",
+    "elo": 1377.6,
+    "form_pts": 0.6,
+    "form_gd": -0.5,
+    "goals_avg": 0.7,
+    "conceded_avg": 1.2
+  },
+  "RCD Mallorca": {
+    "name": "RCD Mallorca",
+    "league": "La Liga",
+    "elo": 1462.7,
+    "form_pts": 1.4,
+    "form_gd": 0.2,
+    "goals_avg": 1.4,
+    "conceded_avg": 1.2
+  },
+  "Real Madrid CF": {
+    "name": "Real Madrid CF",
+    "league": "La Liga",
+    "elo": 1708.4,
+    "form_pts": 2.0,
+    "form_gd": 0.6,
+    "goals_avg": 1.7,
+    "conceded_avg": 1.1
+  },
+  "Real Sociedad de Fútbol": {
+    "name": "Real Sociedad de Fútbol",
+    "league": "La Liga",
+    "elo": 1473.2,
+    "form_pts": 0.8,
+    "form_gd": -0.3,
+    "goals_avg": 1.6,
+    "conceded_avg": 1.9
+  },
+  "Rayo Vallecano de Madrid": {
+    "name": "Rayo Vallecano de Madrid",
+    "league": "La Liga",
+    "elo": 1546.6,
+    "form_pts": 1.8,
+    "form_gd": 0.3,
+    "goals_avg": 1.3,
+    "conceded_avg": 1.0
+  },
+  "AJ Auxerre": {
+    "name": "AJ Auxerre",
+    "league": "Ligue 1",
+    "elo": 1486.8,
+    "form_pts": 1.6,
+    "form_gd": 0.6,
+    "goals_avg": 1.5,
+    "conceded_avg": 0.9
+  },
+  "OGC Nice": {
+    "name": "OGC Nice",
+    "league": "Ligue 1",
+    "elo": 1450.7,
+    "form_pts": 0.8,
+    "form_gd": -0.9,
+    "goals_avg": 0.7,
+    "conceded_avg": 1.6
+  },
+  "Montpellier HSC": {
+    "name": "Montpellier HSC",
+    "league": "Ligue 1",
+    "elo": 1306.7,
+    "form_pts": 0.1,
+    "form_gd": -2.1,
+    "goals_avg": 0.2,
+    "conceded_avg": 2.3
+  },
+  "RC Strasbourg Alsace": {
+    "name": "RC Strasbourg Alsace",
+    "league": "Ligue 1",
+    "elo": 1572.1,
+    "form_pts": 1.8,
+    "form_gd": 0.2,
+    "goals_avg": 1.8,
+    "conceded_avg": 1.6
+  },
+  "Real Valladolid CF": {
+    "name": "Real Valladolid CF",
+    "league": "La Liga",
+    "elo": 1257.5,
+    "form_pts": 0.0,
+    "form_gd": -1.9,
+    "goals_avg": 0.8,
+    "conceded_avg": 2.7
+  },
+  "RCD Espanyol de Barcelona": {
+    "name": "RCD Espanyol de Barcelona",
+    "league": "La Liga",
+    "elo": 1446.6,
+    "form_pts": 0.9,
+    "form_gd": -0.5,
+    "goals_avg": 0.8,
+    "conceded_avg": 1.3
+  },
+  "Villarreal CF": {
+    "name": "Villarreal CF",
+    "league": "La Liga",
+    "elo": 1611.3,
+    "form_pts": 1.7,
+    "form_gd": 0.8,
+    "goals_avg": 2.1,
+    "conceded_avg": 1.3
+  },
+  "Club Atlético de Madrid": {
+    "name": "Club Atlético de Madrid",
+    "league": "La Liga",
+    "elo": 1590.2,
+    "form_pts": 1.2,
+    "form_gd": -0.4,
+    "goals_avg": 1.5,
+    "conceded_avg": 1.9
+  },
+  "US Lecce": {
+    "name": "US Lecce",
+    "league": "Serie A",
+    "elo": 1442.9,
+    "form_pts": 1.1,
+    "form_gd": -0.5,
+    "goals_avg": 0.8,
+    "conceded_avg": 1.3
+  },
+  "Atalanta BC": {
+    "name": "Atalanta BC",
+    "league": "Serie A",
+    "elo": 1580.5,
+    "form_pts": 1.3,
+    "form_gd": 0.2,
+    "goals_avg": 1.2,
+    "conceded_avg": 1.0
+  },
+  "Leicester City FC": {
+    "name": "Leicester City FC",
+    "league": "Premier League",
+    "elo": 1340.9,
+    "form_pts": 0.8,
+    "form_gd": -1.0,
+    "goals_avg": 0.8,
+    "conceded_avg": 1.8
+  },
+  "Tottenham Hotspur FC": {
+    "name": "Tottenham Hotspur FC",
+    "league": "Premier League",
+    "elo": 1432.5,
+    "form_pts": 1.2,
+    "form_gd": -0.4,
+    "goals_avg": 1.0,
+    "conceded_avg": 1.4
+  },
+  "Juventus FC": {
+    "name": "Juventus FC",
+    "league": "Serie A",
+    "elo": 1628.5,
+    "form_pts": 1.9,
+    "form_gd": 0.5,
+    "goals_avg": 1.1,
+    "conceded_avg": 0.6
+  },
+  "Como 1907": {
+    "name": "Como 1907",
+    "league": "Serie A",
+    "elo": 1634.9,
+    "form_pts": 2.0,
+    "form_gd": 1.1,
+    "goals_avg": 1.9,
+    "conceded_avg": 0.8
+  },
+  "Borussia Mönchengladbach": {
+    "name": "Borussia Mönchengladbach",
+    "league": "Bundesliga",
+    "elo": 1475.4,
+    "form_pts": 1.3,
+    "form_gd": 0.1,
+    "goals_avg": 1.5,
+    "conceded_avg": 1.4
+  },
+  "Bayer 04 Leverkusen": {
+    "name": "Bayer 04 Leverkusen",
+    "league": "Bundesliga",
+    "elo": 1603.3,
+    "form_pts": 1.6,
+    "form_gd": 0.5,
+    "goals_avg": 2.3,
+    "conceded_avg": 1.8
+  },
+  "Borussia Dortmund": {
+    "name": "Borussia Dortmund",
+    "league": "Bundesliga",
+    "elo": 1662.4,
+    "form_pts": 2.1,
+    "form_gd": 1.0,
+    "goals_avg": 1.9,
+    "conceded_avg": 0.9
+  },
+  "Eintracht Frankfurt": {
+    "name": "Eintracht Frankfurt",
+    "league": "Bundesliga",
+    "elo": 1493.5,
+    "form_pts": 1.0,
+    "form_gd": -0.3,
+    "goals_avg": 1.3,
+    "conceded_avg": 1.6
+  },
+  "1. FSV Mainz 05": {
+    "name": "1. FSV Mainz 05",
+    "league": "Bundesliga",
+    "elo": 1515.3,
+    "form_pts": 1.7,
+    "form_gd": 0.3,
+    "goals_avg": 1.7,
+    "conceded_avg": 1.4
+  },
+  "1. FC Union Berlin": {
+    "name": "1. FC Union Berlin",
+    "league": "Bundesliga",
+    "elo": 1452.3,
+    "form_pts": 1.1,
+    "form_gd": -0.5,
+    "goals_avg": 1.5,
+    "conceded_avg": 2.0
+  },
+  "FC Augsburg": {
+    "name": "FC Augsburg",
+    "league": "Bundesliga",
+    "elo": 1501.7,
+    "form_pts": 1.2,
+    "form_gd": -0.5,
+    "goals_avg": 1.5,
+    "conceded_avg": 2.0
+  },
+  "SV Werder Bremen": {
+    "name": "SV Werder Bremen",
+    "league": "Bundesliga",
+    "elo": 1416.9,
+    "form_pts": 1.0,
+    "form_gd": -0.4,
+    "goals_avg": 1.2,
+    "conceded_avg": 1.6
+  },
+  "SC Freiburg": {
+    "name": "SC Freiburg",
+    "league": "Bundesliga",
+    "elo": 1522.6,
+    "form_pts": 1.4,
+    "form_gd": -0.1,
+    "goals_avg": 1.7,
+    "conceded_avg": 1.8
+  },
+  "VfB Stuttgart": {
+    "name": "VfB Stuttgart",
+    "league": "Bundesliga",
+    "elo": 1601.0,
+    "form_pts": 1.6,
+    "form_gd": 0.6,
+    "goals_avg": 2.3,
+    "conceded_avg": 1.7
+  },
+  "TSG 1899 Hoffenheim": {
+    "name": "TSG 1899 Hoffenheim",
+    "league": "Bundesliga",
+    "elo": 1554.5,
+    "form_pts": 1.5,
+    "form_gd": -0.5,
+    "goals_avg": 1.6,
+    "conceded_avg": 2.1
+  },
+  "Holstein Kiel": {
+    "name": "Holstein Kiel",
+    "league": "Bundesliga",
+    "elo": 1396.2,
+    "form_pts": 0.9,
+    "form_gd": -0.7,
+    "goals_avg": 1.4,
+    "conceded_avg": 2.1
+  },
+  "RB Leipzig": {
+    "name": "RB Leipzig",
+    "league": "Bundesliga",
+    "elo": 1597.7,
+    "form_pts": 2.1,
+    "form_gd": 0.6,
+    "goals_avg": 2.0,
+    "conceded_avg": 1.4
+  },
+  "VfL Bochum 1848": {
+    "name": "VfL Bochum 1848",
+    "league": "Bundesliga",
+    "elo": 1379.1,
+    "form_pts": 0.8,
+    "form_gd": -1.0,
+    "goals_avg": 1.0,
+    "conceded_avg": 2.0
+  },
+  "FC St. Pauli 1910": {
+    "name": "FC St. Pauli 1910",
+    "league": "Bundesliga",
+    "elo": 1352.9,
+    "form_pts": 0.3,
+    "form_gd": -1.4,
+    "goals_avg": 0.6,
+    "conceded_avg": 2.0
+  },
+  "1. FC Heidenheim 1846": {
+    "name": "1. FC Heidenheim 1846",
+    "league": "Bundesliga",
+    "elo": 1387.6,
+    "form_pts": 1.2,
+    "form_gd": 0.0,
+    "goals_avg": 1.9,
+    "conceded_avg": 1.9
+  },
+  "VfL Wolfsburg": {
+    "name": "VfL Wolfsburg",
+    "league": "Bundesliga",
+    "elo": 1402.3,
+    "form_pts": 0.9,
+    "form_gd": -0.4,
+    "goals_avg": 1.2,
+    "conceded_avg": 1.6
+  },
+  "FC Bayern München": {
+    "name": "FC Bayern München",
+    "league": "Bundesliga",
+    "elo": 1793.6,
+    "form_pts": 2.6,
+    "form_gd": 2.1,
+    "goals_avg": 3.4,
+    "conceded_avg": 1.3
+  },
+  "Real Oviedo": {
+    "name": "Real Oviedo",
+    "league": "La Liga",
+    "elo": 1396.2,
+    "form_pts": 0.8,
+    "form_gd": -0.8,
+    "goals_avg": 0.8,
+    "conceded_avg": 1.6
+  },
+  "Sunderland AFC": {
+    "name": "Sunderland AFC",
+    "league": "Premier League",
+    "elo": 1531.6,
+    "form_pts": 1.7,
+    "form_gd": -0.1,
+    "goals_avg": 1.3,
+    "conceded_avg": 1.4
+  },
+  "Burnley FC": {
+    "name": "Burnley FC",
+    "league": "Premier League",
+    "elo": 1353.0,
+    "form_pts": 0.3,
+    "form_gd": -1.3,
+    "goals_avg": 0.6,
+    "conceded_avg": 1.9
+  },
+  "Levante UD": {
+    "name": "Levante UD",
+    "league": "La Liga",
+    "elo": 1497.2,
+    "form_pts": 1.9,
+    "form_gd": 0.2,
+    "goals_avg": 1.7,
+    "conceded_avg": 1.5
+  },
+  "FC Metz": {
+    "name": "FC Metz",
+    "league": "Ligue 1",
+    "elo": 1339.0,
+    "form_pts": 0.4,
+    "form_gd": -1.3,
+    "goals_avg": 1.0,
+    "conceded_avg": 2.3
+  },
+  "FC Lorient": {
+    "name": "FC Lorient",
+    "league": "Ligue 1",
+    "elo": 1515.8,
+    "form_pts": 1.2,
+    "form_gd": 0.1,
+    "goals_avg": 1.4,
+    "conceded_avg": 1.3
+  },
+  "Paris FC": {
+    "name": "Paris FC",
+    "league": "Ligue 1",
+    "elo": 1543.4,
+    "form_pts": 1.8,
+    "form_gd": 0.9,
+    "goals_avg": 1.9,
+    "conceded_avg": 1.0
+  },
+  "Elche CF": {
+    "name": "Elche CF",
+    "league": "La Liga",
+    "elo": 1477.8,
+    "form_pts": 1.7,
+    "form_gd": 0.1,
+    "goals_avg": 1.3,
+    "conceded_avg": 1.2
+  },
+  "Leeds United FC": {
+    "name": "Leeds United FC",
+    "league": "Premier League",
+    "elo": 1532.2,
+    "form_pts": 1.6,
+    "form_gd": 0.3,
+    "goals_avg": 1.2,
+    "conceded_avg": 0.9
+  },
+  "US Sassuolo Calcio": {
+    "name": "US Sassuolo Calcio",
+    "league": "Serie A",
+    "elo": 1486.8,
+    "form_pts": 1.1,
+    "form_gd": -0.1,
+    "goals_avg": 1.1,
+    "conceded_avg": 1.2
+  },
+  "US Cremonese": {
+    "name": "US Cremonese",
+    "league": "Serie A",
+    "elo": 1396.1,
+    "form_pts": 1.0,
+    "form_gd": -0.7,
+    "goals_avg": 1.0,
+    "conceded_avg": 1.7
+  },
+  "1. FC Köln": {
+    "name": "1. FC Köln",
+    "league": "Bundesliga",
+    "elo": 1414.5,
+    "form_pts": 0.8,
+    "form_gd": -0.6,
+    "goals_avg": 1.6,
+    "conceded_avg": 2.2
+  },
+  "AC Pisa 1909": {
+    "name": "AC Pisa 1909",
+    "league": "Serie A",
+    "elo": 1305.7,
+    "form_pts": 0.3,
+    "form_gd": -1.7,
+    "goals_avg": 0.6,
+    "conceded_avg": 2.3
+  },
+  "Hamburger SV": {
+    "name": "Hamburger SV",
+    "league": "Bundesliga",
+    "elo": 1477.3,
+    "form_pts": 1.2,
+    "form_gd": -0.5,
+    "goals_avg": 1.4,
+    "conceded_avg": 1.9
+  }
+}

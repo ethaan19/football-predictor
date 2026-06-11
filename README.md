@@ -1,8 +1,8 @@
 # ⚽ Football Match Predictor — Azure AI Foundry
 
-> Predicción de partidos de fútbol usando Machine Learning desplegado en Azure AI Foundry
+> Football match outcome prediction powered by GPT-4o-mini deployed on Azure AI Foundry
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)](https://python.org)
 [![Azure](https://img.shields.io/badge/Azure-AI%20Foundry-0078D4?logo=microsoftazure)](https://azure.microsoft.com)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?logo=fastapi)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://react.dev)
@@ -10,126 +10,124 @@
 
 ---
 
-## 📌 Descripción
+## 📌 Description
 
-Aplicación full-stack que predice el resultado de un partido de fútbol entre dos equipos seleccionados. El corazón del sistema es un modelo **XGBoost** entrenado con datos históricos de partidos, desplegado como un **Managed Online Endpoint en Azure AI Foundry (Azure ML)**.
+Full-stack application that predicts the outcome of a football match between two selected teams. The user picks a home and away team from the top 5 European leagues, and the system returns win probabilities for each possible outcome using **GPT-4o-mini** deployed as a managed endpoint on **Azure AI Foundry**.
 
-La predicción devuelve probabilidades para cuatro resultados:
-- **⚽Goles de cada equipo (Local y Visitante)**
-- **Victoria equipo local**
-- **Empate**
-- **Victoria equipo visitante**
+The prediction returns probabilities for four outcomes:
+- ⚽ **Goals from each team (Home and Away)**
+- 🏆 **Home team victory**
+- 🤝 **Draw**
+- 🏆 **Away team victory**
+
+Team statistics (dynamic ELO rating, recent form, goals average) are automatically computed from real match data fetched from the **football-data.org API**.
 
 ---
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        FRONTEND (React)                      │
-│         Selección de equipos → Visualización resultados     │
+│                      FRONTEND (React)                        │
+│          Team selection → Prediction visualization          │
 └───────────────────────┬─────────────────────────────────────┘
                         │ HTTP REST
 ┌───────────────────────▼─────────────────────────────────────┐
 │                    BACKEND (FastAPI)                         │
-│     Lógica de negocio + Feature Engineering                 │
+│          Business logic + Feature Engineering               │
 └───────────────────────┬─────────────────────────────────────┘
-                        │ Azure ML SDK / REST
+                        │ Azure OpenAI REST API
 ┌───────────────────────▼─────────────────────────────────────┐
-│              AZURE AI FOUNDRY                                │
+│                  AZURE AI FOUNDRY                            │
 │   ┌─────────────────────────────────────────────────────┐   │
-│   │   Managed Online Endpoint (XGBoost Model)           │   │
-│   │   Input: features del partido                       │   │
-│   │   Output: [P(local_win), P(draw), P(away_win)]     │   │
+│   │         GPT-4o-mini Managed Endpoint                │   │
+│   │   Input: team stats + match context                 │   │
+│   │   Output: { home_win, draw, away_win }              │   │
 │   └─────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
                         │
 ┌───────────────────────▼─────────────────────────────────────┐
-│                  DATOS HISTÓRICOS                            │
-│   football-data.org API — Ligas europeas (2015–2024)        │
+│                    MATCH DATA                                │
+│   football-data.org API — Top 5 European leagues            │
+│   110 teams · 3,500+ matches · Seasons 2024–2026            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🧠 Modelo de Machine Learning
+## 🧠 How It Works
 
-### Features utilizadas
-| Feature | Descripción |
-|---------|------------|
-| `home_elo` | Rating ELO del equipo local |
-| `away_elo` | Rating ELO del equipo visitante |
-| `elo_diff` | Diferencia de ELO (home - away) |
-| `home_form_pts` | Puntos últimos 5 partidos (local) |
-| `away_form_pts` | Puntos últimos 5 partidos (visitante) |
-| `home_goals_avg` | Media de goles marcados (local, últimas 10 jornadas) |
-| `away_goals_avg` | Media de goles marcados (visitante) |
-| `home_goals_conceded_avg` | Media de goles encajados (local) |
-| `away_goals_conceded_avg` | Media de goles encajados (visitante) |
-| `h2h_home_wins` | Victorias head-to-head (local) |
-| `h2h_draws` | Empates head-to-head |
-| `h2h_away_wins` | Victorias head-to-head (visitante) |
-| `home_advantage` | Factor cancha (siempre 1 para el local) |
+### Team Features
+Each team is profiled with the following stats, computed from real historical match data:
 
-### Algoritmo: XGBoost (Multiclass)
-- **Target**: `result` ∈ {0=local_win, 1=draw, 2=away_win}
-- **Métrica principal**: Log-Loss + Accuracy
-- **Validación**: TimeSeriesSplit (respeta orden temporal de los datos)
+| Feature | Description |
+|---------|-------------|
+| `elo` | Dynamic ELO rating (updated after every match) |
+| `form_pts` | Average points per game — last 10 matches |
+| `form_gd` | Average goal difference — last 10 matches |
+| `goals_avg` | Average goals scored — last 10 matches |
+| `conceded_avg` | Average goals conceded — last 10 matches |
+
+### AI Model: GPT-4o-mini on Azure AI Foundry
+The backend sends a structured prompt with both teams' stats to the GPT-4o-mini endpoint. The model acts as a football analyst and returns a JSON with the three outcome probabilities.
+
+```
+Team stats → Prompt engineering → Azure AI Foundry (GPT-4o-mini) → Probabilities
+```
 
 ---
 
-## 🚀 Instalación y uso
+## 🚀 Installation & Usage
 
-### Pre-requisitos
-- Python 3.11+
+### Prerequisites
+- Python 3.13+
 - Node.js 18+
-- Cuenta de Azure con Azure ML Workspace
-- API key de [football-data.org](https://www.football-data.org/) (gratuita)
+- Azure account with an Azure AI Foundry resource
+- Free API key from [football-data.org](https://www.football-data.org/)
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 ```bash
-git clone https://github.com/TU_USUARIO/football-predictor.git
+git clone https://github.com/YOUR_USERNAME/football-predictor.git
 cd football-predictor
 ```
 
-### 2. Configurar variables de entorno
-```bash
-cp .env.example .env
-# Editar .env con tus credenciales de Azure y football-data.org
+### 2. Set up environment variables
+Create a `.env` file in the root folder:
+```
+FOOTBALL_DATA_API_KEY=your_api_key
+
+AZURE_OPENAI_ENDPOINT=https://YOUR-RESOURCE.openai.azure.com/
+AZURE_OPENAI_API_KEY=your_azure_api_key
+AZURE_OPENAI_DEPLOYMENT=gpt-4o-mini
+
+CORS_ORIGINS=http://localhost:5173
 ```
 
-### 3. Recolectar datos y entrenar el modelo
+### 3. Fetch match data & generate team stats
 ```bash
-cd model
+python data/collect_data.py       # Downloads current season matches
+python data/generate_teams.py     # Computes team stats → teams.json
+```
+
+### 4. Launch the backend
+```bash
+cd backend
 pip install -r requirements.txt
-python ../data/collect_data.py          # Descarga datos históricos
-python train.py                          # Entrena y guarda el modelo
+uvicorn main:app --reload --port 8000
 ```
 
-### 4. Desplegar en Azure AI Foundry
+### 5. Launch the frontend
 ```bash
-python deploy_azure.py                   # Crea endpoint y despliega modelo
-```
-
-### 5. Lanzar el backend
-```bash
-cd ../backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-### 6. Lanzar el frontend
-```bash
-cd ../frontend
+cd frontend
 npm install
 npm run dev
 ```
 
-Accede a `http://localhost:5173` 🎉
+Open `http://localhost:5173` 🎉
 
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Project Structure
 
 ```
 football-predictor/
@@ -138,19 +136,13 @@ football-predictor/
 ├── docker-compose.yml
 │
 ├── data/
-│   └── collect_data.py         # Descarga datos de football-data.org
-│
-├── model/
-│   ├── train.py                # Entrenamiento del modelo XGBoost
-│   ├── features.py             # Feature engineering (ELO, form, h2h)
-│   ├── deploy_azure.py         # Despliegue en Azure AI Foundry
-│   ├── score.py                # Script de inferencia (Azure ML)
-│   └── requirements.txt
+│   ├── collect_data.py       # Fetches matches from football-data.org
+│   └── generate_teams.py     # Computes ELO + stats → teams.json
 │
 ├── backend/
-│   ├── main.py                 # FastAPI app (endpoints REST)
-│   ├── predictor.py            # Cliente del endpoint Azure ML
-│   ├── team_data.py            # Catálogo de equipos y stats
+│   ├── main.py               # FastAPI app (REST endpoints)
+│   ├── predictor.py          # Azure AI Foundry client (GPT-4o-mini)
+│   ├── team_data.py          # Loads team catalog from teams.json
 │   └── requirements.txt
 │
 ├── frontend/
@@ -162,12 +154,15 @@ football-predictor/
 │       ├── main.jsx
 │       └── components/
 │           ├── TeamSelector.jsx
+│           ├── TeamCrest.jsx
+│           ├── LeagueFilter.jsx
+│           ├── MatchCard.jsx
 │           ├── PredictionResult.jsx
-│           └── MatchCard.jsx
+│           └── LoadingOverlay.jsx
 │
 └── .github/
     └── workflows/
-        └── deploy.yml          # CI/CD con GitHub Actions
+        └── ci.yml            # GitHub Actions CI
 ```
 
 ---
@@ -175,12 +170,12 @@ football-predictor/
 ## 🔌 API Reference
 
 ### `POST /api/predict`
-Predice el resultado de un partido.
+Predicts the outcome of a match between two teams.
 
 **Request:**
 ```json
 {
-  "home_team": "Real Madrid",
+  "home_team": "Real Madrid CF",
   "away_team": "FC Barcelona"
 }
 ```
@@ -188,57 +183,40 @@ Predice el resultado de un partido.
 **Response:**
 ```json
 {
-  "home_team": "Real Madrid",
+  "home_team": "Real Madrid CF",
   "away_team": "FC Barcelona",
-  "predictions": {
-    "home_win": 0.48,
-    "draw": 0.24,
-    "away_win": 0.28
-  },
-  "model_version": "xgboost-v1.2",
-  "confidence": "HIGH"
+  "home_win": 0.48,
+  "draw": 0.24,
+  "away_win": 0.28,
+  "confidence": "MEDIA",
+  "model_version": "gpt-4o-mini (Azure AI Foundry)"
 }
 ```
 
 ### `GET /api/teams`
-Devuelve la lista de equipos disponibles.
+Returns the full list of available teams with their league.
+
+### `GET /api/leagues`
+Returns all available leagues with their teams.
 
 ---
 
-## 🛠️ Stack tecnológico
+## 🛠️ Tech Stack
 
-| Capa | Tecnología |
-|------|-----------|
-| **Frontend** | React 18, Vite, Tailwind CSS |
-| **Backend** | Python, FastAPI, Uvicorn |
-| **ML** | XGBoost, Scikit-learn, Pandas |
-| **Cloud** | Azure AI Foundry (Azure ML), Azure Container Registry |
-| **Datos** | football-data.org REST API |
+| Layer | Technology |
+|-------|-----------|
+| **Frontend** | React 18, Vite, Custom CSS |
+| **Backend** | Python 3.13, FastAPI, Uvicorn |
+| **AI** | GPT-4o-mini on Azure AI Foundry |
+| **Data** | football-data.org REST API |
+| **Data Processing** | Pandas, NumPy (ELO + form stats) |
 | **DevOps** | Docker, GitHub Actions |
 
 ---
 
-## 📊 Resultados del modelo
+## 👤 Author
 
-| Métrica | Valor |
-|---------|-------|
-| Accuracy | ~58% |
-| Log-Loss | ~0.98 |
-| F1-Score (macro) | ~0.54 |
+**Ethan Macias** — Master's in AI + Big Data at Tajamar (Microsoft Partner)
 
-> ℹ️ Predecir fútbol es inherentemente difícil. La literatura científica sitúa el techo humano experto en torno al 60–65% de accuracy en partidos individuales.
-
----
-
-## 👥 Autor
-
-**[Tu Nombre]** — Alumno de Master IA + Big Data en Tajamar (Microsoft Partner)
-
-- 🌐 LinkedIn: [linkedin.com/in/tu-perfil](https://linkedin.com)
-- 💻 GitHub: [@tu-usuario](https://github.com)
-
----
-
-## 📄 Licencia
-
-MIT © 2025
+- 🌐 LinkedIn: [https://www.linkedin.com/in/ethan-macias-termenon-b99a79338/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BHyTNUHDhTkWj4qNTEeU%2BOg%3D%3D](https://linkedin.com)
+- 💻 GitHub: [@ethaan19](https://github.com)

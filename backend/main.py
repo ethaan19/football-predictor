@@ -17,23 +17,23 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
-
+from fastapi.middleware.cors import CORSMiddleware
 from predictor import predict
 from team_data import TEAMS_CATALOG, get_team_features
 
 load_dotenv("../.env")
 
 # ─── App ─────────────────────────────────────────────────────────────────────
-app = FastAPI(
-    title="Football Match Predictor API",
-    description="Predicción de partidos de fútbol con XGBoost desplegado en Azure AI Foundry",
-    version="1.0.0",
-    docs_url="/docs",
-)
+app = FastAPI(...)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("CORS_ORIGINS", "http://localhost:5173").split(","),
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:8000",
+        "https://football-predictor.vercel.app",  # Tu URL de Vercel
+        "https://football-predictor-production-9561.up.railway.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

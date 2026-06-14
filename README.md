@@ -10,6 +10,10 @@
 
 ---
 
+### **APP:** https://football-predictor-hazel.vercel.app/
+
+---
+
 ## 📌 Description
 
 Full-stack application that predicts the outcome of a football match between two selected teams. The user picks a home and away team from the top 5 European leagues, and the system returns win probabilities for each possible outcome using **GPT-4o-mini** deployed as a managed endpoint on **Azure AI Foundry**.

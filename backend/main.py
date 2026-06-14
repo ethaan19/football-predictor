@@ -24,7 +24,12 @@ from team_data import TEAMS_CATALOG, get_team_features
 load_dotenv("../.env")
 
 # ─── App ─────────────────────────────────────────────────────────────────────
-app = FastAPI(...)
+app = FastAPI(
+    title="Football Match Predictor API",
+    description="Predicción de partidos de fútbol con XGBoost desplegado en Azure AI Foundry",
+    version="1.0.0",
+    docs_url="/docs",
+)
 
 app.add_middleware(
     CORSMiddleware,

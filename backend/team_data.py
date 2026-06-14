@@ -2,9 +2,8 @@ import json
 from pathlib import Path
 
 POSSIBLE_PATHS = [
-    Path(__file__).parent.parent / "data" / "teams.json",
-    Path("/app/data/teams.json"),
-    Path("./data/teams.json"),
+    Path(__file__).parent / "data" / "teams.json",
+    Path("/app/backend/data/teams.json"),
 ]
 
 TEAMS_JSON = None

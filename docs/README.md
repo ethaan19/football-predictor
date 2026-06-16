@@ -1,4 +1,4 @@
-🌐 **[English Version](../README.md)**
+**[🇬🇧 Read in English](../README.md)**
 
 # ⚽ Predicción de Partidos de Fútbol — Azure AI Foundry
 

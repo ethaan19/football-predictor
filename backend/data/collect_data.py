@@ -1,17 +1,17 @@
 """
 collect_data.py
 ---------------
-Descarga partidos históricos de football-data.org (API gratuita).
-Guarda los datos en data/matches_raw.csv para el entrenamiento.
+Downloads historical matches from football-data.org (free API).
+Saves data in data/matches_raw.csv for training.
 
-Leagues descargadas (gratuitas con el plan Free):
-  - PL   → Premier League (Inglaterra)
-  - PD   → La Liga (España)
-  - BL1  → Bundesliga (Alemania)
-  - SA   → Serie A (Italia)
-  - FL1  → Ligue 1 (Francia)
+Downloaded leagues (free with the Free plan):
+  - PL   → Premier League (England)
+  - PD   → La Liga (Spain)
+  - BL1  → Bundesliga (Germany)
+  - SA   → Serie A (Italy)
+  - FL1  → Ligue 1 (France)
 
-Uso:
+Usage:
     python data/collect_data.py
 """
 
@@ -42,7 +42,7 @@ OUTPUT_FILE = Path(__file__).parent / "matches_raw.csv"
 
 
 def fetch_matches(league_code: str, season: int) -> list[dict]:
-    """Descarga todos los partidos de una liga y temporada."""
+    """Downloads all matches of a league and season."""
     url = f"{BASE_URL}/competitions/{league_code}/matches"
     params = {"season": season, "status": "FINISHED"}
 
@@ -52,15 +52,15 @@ def fetch_matches(league_code: str, season: int) -> list[dict]:
         data = response.json()
         return data.get("matches", [])
     except requests.exceptions.HTTPError as e:
-        print(f"  ⚠️  Error {e.response.status_code} en {league_code}/{season}: {e}")
+        print(f"  ⚠️  Error {e.response.status_code} on {league_code}/{season}: {e}")
         return []
     except Exception as e:
-        print(f"  ⚠️  Error inesperado en {league_code}/{season}: {e}")
+        print(f"  ⚠️  Unexpected error on {league_code}/{season}: {e}")
         return []
 
 
 def parse_match(match: dict, league: str) -> dict | None:
-    """Extrae los campos relevantes de un objeto partido."""
+    """Extracts relevant fields from a match object."""
     score = match.get("score", {})
     full_time = score.get("fullTime", {})
     home_goals = full_time.get("home")
@@ -91,18 +91,18 @@ def parse_match(match: dict, league: str) -> dict | None:
 
 
 def main():
-    print("⚽  Iniciando descarga de datos históricos...\n")
+    print("⚽  Starting download of historical data...\n")
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     all_matches = []
 
     for code, name in LEAGUES.items():
         for season in SEASONS:
-            print(f"  📥  {name} — temporada {season}/{season+1}", end=" ... ")
+            print(f"  📥  {name} — season {season}/{season+1}", end=" ... ")
             matches = fetch_matches(code, season)
             parsed = [r for m in matches if (r := parse_match(m, name)) is not None]
             all_matches.extend(parsed)
-            print(f"{len(parsed)} partidos")
+            print(f"{len(parsed)} matches")
             time.sleep(6)   # Respeta el rate limit del plan gratuito (10 req/min)
 
     df = pd.DataFrame(all_matches)
@@ -110,7 +110,7 @@ def main():
     df = df.sort_values("date").reset_index(drop=True)
 
     df.to_csv(OUTPUT_FILE, index=False)
-    print(f"\n✅  Total: {len(df):,} partidos guardados en {OUTPUT_FILE}")
+    print(f"\n✅  Total: {len(df):,} matches saved to {OUTPUT_FILE}")
     print(df.head())
 
 

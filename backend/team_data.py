@@ -30,13 +30,13 @@ def load_teams() -> dict:
     if TEAMS_JSON and TEAMS_JSON.exists():
         with open(TEAMS_JSON, encoding="utf-8") as f:
             return json.load(f)
-    print("⚠️  teams.json no encontrado, usando catálogo básico.")
+    print("⚠️  teams.json not found, using basic catalog.")
     return _FALLBACK_CATALOG
 
 TEAMS_CATALOG = load_teams()
 
 def get_team_features(home: dict, away: dict) -> dict:
-    """Construye el vector de características para el modelo."""
+    """Builds the feature vector for the model."""
     elo_home = home.get("elo", 1500)
     elo_away = away.get("elo", 1500)
 

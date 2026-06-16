@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 const CONFIDENCE_STYLES = {
-  ALTA:  { color: "#34d399", bg: "rgba(52,211,153,0.08)",  border: "rgba(52,211,153,0.3)" },
-  MEDIA: { color: "#fbbf24", bg: "rgba(251,191,36,0.08)",  border: "rgba(251,191,36,0.3)" },
-  BAJA:  { color: "#f43f5e", bg: "rgba(244,63,94,0.08)",   border: "rgba(244,63,94,0.3)" },
+  HIGH:  { color: "#34d399", bg: "rgba(52,211,153,0.08)",  border: "rgba(52,211,153,0.3)" },
+  MEDIUM: { color: "#fbbf24", bg: "rgba(251,191,36,0.08)",  border: "rgba(251,191,36,0.3)" },
+  LOW:  { color: "#f43f5e", bg: "rgba(244,63,94,0.08)",   border: "rgba(244,63,94,0.3)" },
 };
 
 const OUTCOMES_META = {
@@ -16,13 +16,13 @@ export default function PredictionResult({ prediction }) {
   const { home_team, away_team, home_win, draw, away_win, confidence } = prediction;
 
   const outcomes = [
-    { key: "home", label: `Victoria ${home_team} (como local)`, value: home_win },
-    { key: "draw", label: "Empate",                 value: draw     },
-    { key: "away", label: `Victoria ${away_team} (como visitante)`,  value: away_win },
+    { key: "home", label: `${home_team} Win (Home)`, value: home_win },
+    { key: "draw", label: "Draw",                 value: draw     },
+    { key: "away", label: `${away_team} Win (Away)`,  value: away_win },
   ];
 
   const best = outcomes.reduce((a, b) => (a.value > b.value ? a : b));
-  const confStyle = CONFIDENCE_STYLES[confidence] ?? CONFIDENCE_STYLES.MEDIA;
+  const confStyle = CONFIDENCE_STYLES[confidence] ?? CONFIDENCE_STYLES.MEDIUM;
   const winnerColor = OUTCOMES_META[best.key].dot;
 
   const [animated, setAnimated] = useState(false);
@@ -41,7 +41,7 @@ export default function PredictionResult({ prediction }) {
       >
         <span className="winner-icon">🏆</span>
         <div className="winner-info">
-          <div className="winner-label">Resultado más probable</div>
+          <div className="winner-label">Most likely outcome</div>
           <div className="winner-name" style={{ color: winnerColor }}>{best.label}</div>
         </div>
         <div className="winner-right">
@@ -52,7 +52,7 @@ export default function PredictionResult({ prediction }) {
             className="confidence-chip"
             style={{ color: confStyle.color, background: confStyle.bg, borderColor: confStyle.border }}
           >
-            Confianza: {confidence}
+            Confidence: {confidence}
           </span>
         </div>
       </div>

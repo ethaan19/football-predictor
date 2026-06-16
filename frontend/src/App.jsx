@@ -41,7 +41,7 @@ export default function App() {
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.detail || "Error en la predicción");
+        throw new Error(err.detail || "Prediction error");
       }
 
       const data = await res.json();
@@ -83,7 +83,7 @@ export default function App() {
 
           <div className="selectors">
             <TeamSelector
-              label="Equipo Local"
+              label="Home Team"
               side="home"
               value={homeTeam}
               onChange={setHomeTeam}
@@ -101,16 +101,16 @@ export default function App() {
                 {loading ? (
                   <>
                     <span className="spinner" />
-                    Analizando...
+                    Analyzing...
                   </>
                 ) : (
-                  <>Predecir</>
+                  <>Predict</>
                 )}
               </button>
             </div>
 
             <TeamSelector
-              label="Equipo Visitante"
+              label="Away Team"
               side="away"
               value={awayTeam}
               onChange={setAwayTeam}
@@ -127,10 +127,10 @@ export default function App() {
             {loading ? (
               <>
                 <span className="spinner" />
-                Analizando...
+                Analyzing...
               </>
             ) : (
-              <>Predecir</>
+              <>Predict</>
             )}
           </button>
         </section>
@@ -148,14 +148,14 @@ export default function App() {
 
         {!prediction && !loading && (
           <div className="hint">
-            Selecciona una liga y dos equipos, luego pulsa <strong>Predecir</strong>.
+            Select a league and two teams, then press <strong>Predict</strong>.
           </div>
         )}
       </main>
 
       <footer className="footer">
         <p className="disclaimer">
-          Las predicciones son probabilísticas y no garantizan el resultado real.
+          Predictions are probabilistic and do not guarantee the actual outcome.
         </p>
       </footer>
     </div>

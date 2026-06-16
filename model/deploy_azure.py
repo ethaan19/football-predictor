@@ -1,21 +1,21 @@
 """
 deploy_azure.py
 ---------------
-Despliega el modelo XGBoost en Azure AI Foundry (Azure ML)
-como un Managed Online Endpoint.
+Deploys the XGBoost model on Azure AI Foundry (Azure ML)
+as a Managed Online Endpoint.
 
-Pasos:
-  1. Conecta con el workspace de Azure ML
-  2. Registra el modelo en el Model Registry
-  3. Crea (o actualiza) un Managed Online Endpoint
-  4. Despliega el modelo con las dependencias necesarias
-  5. Activa el 100% del tráfico a la nueva versión
+Steps:
+  1. Connect to Azure ML workspace
+  2. Register the model in the Model Registry
+  3. Create (or update) a Managed Online Endpoint
+  4. Deploy the model with required dependencies
+  5. Route 100% of traffic to the new version
 
-Requisitos previos:
-  - az login  (Azure CLI autenticado)
-  - Variables de entorno en .env configuradas
+Prerequisites:
+  - az login (Azure CLI authenticated)
+  - Environment variables set in .env
 
-Uso:
+Usage:
     python model/deploy_azure.py
 """
 
@@ -49,7 +49,7 @@ ARTIFACTS_DIR = MODEL_DIR / "artifacts"
 
 
 def get_ml_client() -> MLClient:
-    """Conecta con Azure ML usando DefaultAzureCredential (az login)."""
+    """Connects to Azure ML using DefaultAzureCredential (az login)."""
     credential = DefaultAzureCredential()
     client = MLClient(
         credential=credential,
@@ -57,13 +57,13 @@ def get_ml_client() -> MLClient:
         resource_group_name=RESOURCE_GROUP,
         workspace_name=WORKSPACE_NAME,
     )
-    print(f"✅  Conectado a workspace: {WORKSPACE_NAME}")
+    print(f"✅  Connected to workspace: {WORKSPACE_NAME}")
     return client
 
 
 def register_model(client: MLClient) -> Model:
-    """Registra el modelo en el Azure ML Model Registry."""
-    print("\n📦  Registrando modelo en Azure ML Model Registry...")
+    """Registers the model in the Azure ML Model Registry."""
+    print("\n📦  Registering model in Azure ML Model Registry...")
 
     model = Model(
         path=str(ARTIFACTS_DIR),
@@ -73,13 +73,13 @@ def register_model(client: MLClient) -> Model:
     )
 
     registered = client.models.create_or_update(model)
-    print(f"    Modelo registrado: {registered.name} v{registered.version}")
+    print(f"    Model registered: {registered.name} v{registered.version}")
     return registered
 
 
 def create_or_update_endpoint(client: MLClient) -> ManagedOnlineEndpoint:
-    """Crea el Managed Online Endpoint si no existe."""
-    print(f"\n🌐  Configurando endpoint: {ENDPOINT_NAME}...")
+    """Creates the Managed Online Endpoint if it does not exist."""
+    print(f"\n🌐  Configuring endpoint: {ENDPOINT_NAME}...")
 
     endpoint = ManagedOnlineEndpoint(
         name=ENDPOINT_NAME,
@@ -89,15 +89,15 @@ def create_or_update_endpoint(client: MLClient) -> ManagedOnlineEndpoint:
     )
 
     created = client.online_endpoints.begin_create_or_update(endpoint).result()
-    print(f"    Endpoint listo: {created.scoring_uri}")
+    print(f"    Endpoint ready: {created.scoring_uri}")
     return created
 
 
 def deploy_model(client: MLClient, registered_model: Model) -> ManagedOnlineDeployment:
-    """Crea el deployment con el modelo y sus dependencias."""
-    print(f"\n🚀  Desplegando modelo como '{DEPLOYMENT_NAME}'...")
+    """Creates the deployment with the model and its dependencies."""
+    print(f"\n🚀  Deploying model as '{DEPLOYMENT_NAME}'...")
 
-    # Entorno con las dependencias necesarias
+    # Environment with the necessary dependencies
     env = Environment(
         name="football-predictor-env",
         description="Environment for football predictor",
@@ -119,32 +119,32 @@ def deploy_model(client: MLClient, registered_model: Model) -> ManagedOnlineDepl
     )
 
     result = client.online_deployments.begin_create_or_update(deployment).result()
-    print(f"    Deployment completado: {result.name}")
+    print(f"    Deployment completed: {result.name}")
     return result
 
 
 def set_traffic(client: MLClient):
-    """Dirige el 100% del tráfico a la nueva versión."""
-    print(f"\n🔀  Configurando tráfico → 100% a '{DEPLOYMENT_NAME}'...")
+    """Routes 100% of the traffic to the new version."""
+    print(f"\n🔀  Configuring traffic → 100% to '{DEPLOYMENT_NAME}'...")
 
     endpoint = client.online_endpoints.get(name=ENDPOINT_NAME)
     endpoint.traffic = {DEPLOYMENT_NAME: 100}
     client.online_endpoints.begin_create_or_update(endpoint).result()
-    print("    Tráfico configurado correctamente.")
+    print("    Traffic routed successfully.")
 
 
 def print_summary(client: MLClient):
-    """Muestra el resumen del endpoint desplegado."""
+    """Displays a summary of the deployed endpoint."""
     endpoint = client.online_endpoints.get(name=ENDPOINT_NAME)
     keys = client.online_endpoints.get_keys(name=ENDPOINT_NAME)
 
     print("\n" + "=" * 60)
-    print("  RESUMEN DEL DESPLIEGUE")
+    print("  DEPLOYMENT SUMMARY")
     print("=" * 60)
     print(f"  Endpoint URL : {endpoint.scoring_uri}")
     print(f"  API Key      : {keys.primary_key[:20]}...")
     print()
-    print("  Añade estas variables a tu .env:")
+    print("  Add these variables to your .env:")
     print(f"  AZURE_ML_ENDPOINT_URL={endpoint.scoring_uri}")
     print(f"  AZURE_ML_API_KEY={keys.primary_key}")
     print("=" * 60)
@@ -152,11 +152,11 @@ def print_summary(client: MLClient):
 
 def main():
     print("=" * 60)
-    print("  FOOTBALL PREDICTOR — Despliegue en Azure AI Foundry")
+    print("  FOOTBALL PREDICTOR — Deployment on Azure AI Foundry")
     print("=" * 60)
 
     if not all([SUBSCRIPTION_ID, RESOURCE_GROUP, WORKSPACE_NAME]):
-        print("❌  Faltan variables de entorno. Revisa tu fichero .env")
+        print("❌  Missing environment variables. Check your .env file")
         sys.exit(1)
 
     client = get_ml_client()
@@ -166,7 +166,7 @@ def main():
     set_traffic(client)
     print_summary(client)
 
-    print("\n✅  Despliegue completado. Siguiente paso:")
+    print("\n✅  Deployment completed. Next step:")
     print("    uvicorn backend.main:app --reload")
 
 

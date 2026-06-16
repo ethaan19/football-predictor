@@ -1,16 +1,16 @@
 """
 train.py
 --------
-Entrena el modelo XGBoost para predicción de partidos de fútbol.
+Trains the XGBoost model for football match outcome prediction.
 
 Pipeline:
-  1. Carga datos históricos (data/matches_raw.csv)
-  2. Aplica feature engineering (ELO, forma, h2h)
-  3. Entrena XGBoost con TimeSeriesSplit (sin data leakage temporal)
-  4. Evalúa el modelo (accuracy, log-loss, report)
-  5. Guarda el modelo en model/artifacts/
+  1. Load historical data (data/matches_raw.csv)
+  2. Apply feature engineering (ELO, form, h2h)
+  3. Train XGBoost with TimeSeriesSplit (no temporal data leakage)
+  4. Evaluate the model (accuracy, log-loss, report)
+  5. Save the model in model/artifacts/
 
-Uso:
+Usage:
     cd football-predictor
     python model/train.py
 """
@@ -34,13 +34,13 @@ from sklearn.preprocessing import LabelEncoder
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Añadir raíz al path
+# Add root to path
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from model.features import FeatureEngineer, FEATURE_COLS
 
-# ─── Rutas ──────────────────────────────────────────────────────────────────
+# ─── Paths ──────────────────────────────────────────────────────────────────
 DATA_FILE      = ROOT / "data" / "matches_raw.csv"
 ARTIFACTS_DIR  = Path(__file__).parent / "artifacts"
 MODEL_FILE     = ARTIFACTS_DIR / "xgboost_model.pkl"
@@ -48,23 +48,23 @@ METADATA_FILE  = ARTIFACTS_DIR / "model_metadata.json"
 
 
 def load_and_prepare_data() -> tuple[pd.DataFrame, pd.Series]:
-    print("📂  Cargando datos...")
+    print("📂  Loading data...")
     df_raw = pd.read_csv(DATA_FILE, parse_dates=["date"])
-    print(f"    {len(df_raw):,} partidos cargados\n")
+    print(f"    {len(df_raw):,} matches loaded\n")
 
-    print("⚙️   Construyendo features...")
+    print("⚙️   Building features...")
     fe = FeatureEngineer()
     df_features = fe.build_features(df_raw)
 
-    # Descartar los primeros 200 partidos (ELO aún no está calibrado)
+    # Discard first 200 matches (ELO is not calibrated yet)
     df_features = df_features.iloc[200:].reset_index(drop=True)
 
     X = df_features[FEATURE_COLS]
-    y = df_features["result"]   # 0=local, 1=empate, 2=visitante
+    y = df_features["result"]   # 0=home, 1=draw, 2=away
 
-    print(f"    {len(X):,} ejemplos con {len(FEATURE_COLS)} features")
-    print(f"    Distribución de resultados:")
-    labels = {0: "Victoria local", 1: "Empate", 2: "Victoria visitante"}
+    print(f"    {len(X):,} examples with {len(FEATURE_COLS)} features")
+    print(f"    Outcome distribution:")
+    labels = {0: "Home win", 1: "Draw", 2: "Away win"}
     for k, v in y.value_counts().sort_index().items():
         print(f"      {labels[k]}: {v:,} ({v/len(y)*100:.1f}%)")
     print()
@@ -73,8 +73,8 @@ def load_and_prepare_data() -> tuple[pd.DataFrame, pd.Series]:
 
 
 def train_model(X: pd.DataFrame, y: pd.Series) -> xgb.XGBClassifier:
-    """Entrena con validación cruzada temporal."""
-    print("🏋️   Entrenando modelo XGBoost...")
+    """Trains with temporal cross validation."""
+    print("🏋️   Training XGBoost model...")
 
     model = xgb.XGBClassifier(
         objective="multi:softprob",
@@ -97,7 +97,7 @@ def train_model(X: pd.DataFrame, y: pd.Series) -> xgb.XGBClassifier:
     tscv = TimeSeriesSplit(n_splits=5)
     cv_scores = []
 
-    print("    Validación cruzada temporal (5 folds):")
+    print("    Temporal cross validation (5 folds):")
     for fold, (train_idx, val_idx) in enumerate(tscv.split(X), 1):
         X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
         y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
@@ -112,18 +112,18 @@ def train_model(X: pd.DataFrame, y: pd.Series) -> xgb.XGBClassifier:
         cv_scores.append(acc)
         print(f"      Fold {fold}: accuracy = {acc:.4f}")
 
-    print(f"\n    CV Accuracy media: {np.mean(cv_scores):.4f} ± {np.std(cv_scores):.4f}")
+    print(f"\n    CV Mean Accuracy: {np.mean(cv_scores):.4f} ± {np.std(cv_scores):.4f}")
 
-    # Entrenamiento final con todos los datos
-    print("\n    Entrenamiento final con todos los datos...")
+    # Final training on all data
+    print("\n    Final training on all data...")
     model.fit(X, y, verbose=False)
 
     return model
 
 
 def evaluate_model(model: xgb.XGBClassifier, X: pd.DataFrame, y: pd.Series) -> dict:
-    """Evaluación completa del modelo."""
-    print("\n📊  Evaluación del modelo (conjunto completo):")
+    """Full model evaluation."""
+    print("\n📊  Model evaluation (full dataset):")
 
     proba = model.predict_proba(X)
     preds = model.predict(X)
@@ -136,11 +136,11 @@ def evaluate_model(model: xgb.XGBClassifier, X: pd.DataFrame, y: pd.Series) -> d
     print()
     print(classification_report(
         y, preds,
-        target_names=["Victoria local", "Empate", "Victoria visitante"]
+        target_names=["Home win", "Draw", "Away win"]
     ))
 
-    # Importancia de features
-    print("🔍  Importancia de features (top 10):")
+    # Feature importance
+    print("🔍  Feature importance (top 10):")
     importance = pd.Series(
         model.feature_importances_,
         index=FEATURE_COLS
@@ -169,13 +169,13 @@ def save_artifacts(model: xgb.XGBClassifier, metadata: dict):
     with open(METADATA_FILE, "w") as f:
         json.dump(metadata, f, indent=2)
 
-    print(f"\n💾  Modelo guardado en {MODEL_FILE}")
-    print(f"💾  Metadata guardada en {METADATA_FILE}")
+    print(f"\n💾  Model saved in {MODEL_FILE}")
+    print(f"💾  Metadata saved in {METADATA_FILE}")
 
 
 def main():
     print("=" * 60)
-    print("  FOOTBALL MATCH PREDICTOR — Entrenamiento del modelo")
+    print("  FOOTBALL MATCH PREDICTOR — Model Training")
     print("=" * 60)
     print()
 
@@ -184,7 +184,7 @@ def main():
     metadata = evaluate_model(model, X, y)
     save_artifacts(model, metadata)
 
-    print("\n✅  Entrenamiento completado. Siguiente paso:")
+    print("\n✅  Training completed. Next step:")
     print("    python model/deploy_azure.py")
 
 

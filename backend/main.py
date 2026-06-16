@@ -1,14 +1,14 @@
 """
 main.py
 -------
-API REST con FastAPI para el Football Match Predictor.
+API REST with FastAPI for Football Match Predictor.
 
 Endpoints:
   GET  /               → Health check
-  GET  /api/teams      → Lista de equipos disponibles
-  POST /api/predict    → Predicción de resultado de partido
+  GET  /api/teams      → List of available teams
+  POST /api/predict    → Match outcome prediction
 
-Uso:
+Usage:
     uvicorn backend.main:app --reload --port 8000
 """
 
@@ -26,7 +26,7 @@ load_dotenv("../.env")
 # ─── App ─────────────────────────────────────────────────────────────────────
 app = FastAPI(
     title="Football Match Predictor API",
-    description="Predicción de partidos de fútbol con XGBoost desplegado en Azure AI Foundry",
+    description="Football match prediction with XGBoost deployed on Azure AI Foundry",
     version="1.0.0",
     docs_url="/docs",
 )
@@ -93,37 +93,37 @@ def get_teams():
 @app.post("/api/predict", response_model=PredictionResult, tags=["Prediction"])
 async def predict_match(request: PredictRequest):
     """
-    Predice el resultado de un partido entre dos equipos.
-    Devuelve las probabilidades de victoria local, empate y victoria visitante.
+    Predicts the outcome of a match between two teams.
+    Returns probabilities for home win, draw, and away win.
     """
     if request.home_team == request.away_team:
         raise HTTPException(
             status_code=400,
-            detail="El equipo local y visitante no pueden ser el mismo."
+            detail="Home and away teams cannot be the same."
         )
 
     home_data = TEAMS_CATALOG.get(request.home_team)
     away_data  = TEAMS_CATALOG.get(request.away_team)
 
     if not home_data:
-        raise HTTPException(status_code=404, detail=f"Equipo no encontrado: {request.home_team}")
+        raise HTTPException(status_code=404, detail=f"Team not found: {request.home_team}")
     if not away_data:
-        raise HTTPException(status_code=404, detail=f"Equipo no encontrado: {request.away_team}")
+        raise HTTPException(status_code=404, detail=f"Team not found: {request.away_team}")
 
-    # Construir features para el modelo
+    # Build features for the model
     features = get_team_features(home_data, away_data)
 
-    # Llamar al endpoint de Azure ML
+    # Call the Azure ML endpoint
     prediction = await predict(home_data, away_data)
 
-    # Calcular confianza basada en la probabilidad máxima
+    # Calculate confidence based on maximum probability
     max_prob = max(prediction["home_win"], prediction["draw"], prediction["away_win"])
     if max_prob >= 0.55:
-        confidence = "ALTA"
+        confidence = "HIGH"
     elif max_prob >= 0.40:
-        confidence = "MEDIA"
+        confidence = "MEDIUM"
     else:
-        confidence = "BAJA"
+        confidence = "LOW"
 
     return PredictionResult(
         home_team=request.home_team,

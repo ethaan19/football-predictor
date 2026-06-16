@@ -13,24 +13,24 @@ async def predict(home: dict, away: dict) -> dict:
     )
 
     prompt = f"""
-Eres un analista experto en fútbol. Analiza este partido y devuelve SOLO un JSON.
+You are an expert football analyst. Analyze this match and return ONLY a JSON.
 
-Equipo LOCAL: {home['name']}
-- ELO: {home['elo']} | Forma (pts/partido): {home['form_pts']} | Dif. goles: {home['form_gd']}
-- Media goles marcados: {home['goals_avg']} | encajados: {home['conceded_avg']}
+HOME Team: {home['name']}
+- ELO: {home['elo']} | Form (pts/match): {home['form_pts']} | Goal Diff: {home['form_gd']}
+- Avg Goals Scored: {home['goals_avg']} | Conceded: {home['conceded_avg']}
 
-Equipo VISITANTE: {away['name']}
-- ELO: {away['elo']} | Forma (pts/partido): {away['form_pts']} | Dif. goles: {away['form_gd']}
-- Media goles marcados: {away['goals_avg']} | encajados: {away['conceded_avg']}
+AWAY Team: {away['name']}
+- ELO: {away['elo']} | Form (pts/match): {away['form_pts']} | Goal Diff: {away['form_gd']}
+- Avg Goals Scored: {away['goals_avg']} | Conceded: {away['conceded_avg']}
 
-Sé realista y preciso al predecir:
-- Si hay una diferencia significativa de ELO, forma y nivel de plantilla entre los equipos (por ejemplo, un equipo de élite como el Real Madrid CF o FC Barcelona contra un equipo de ELO/nivel muy inferior), la predicción de goles debe reflejar esa superioridad con realismo (ej. marcadores como 3-0, 3-1, 4-0 o 4-1 en vez de un genérico y conservador 2-1).
-- Evita predecir goleadas desmesuradas o irreales (como 7-0 o 8-1) a menos que la diferencia en estadísticas de goles marcados/recibidos y ELO sea verdaderamente abismal y extrema.
-- Si los equipos están igualados, sé moderado con los goles (ej. 1-0, 1-1, 1-2, 2-1).
+Be realistic and precise when predicting:
+- If there is a significant difference in ELO, form, and squad strength between the teams (for example, an elite team like Real Madrid CF or FC Barcelona against a team of much lower ELO/level), the goal prediction should reflect that superiority realistically (e.g., scores like 3-0, 3-1, 4-0, or 4-1 instead of a generic and conservative 2-1).
+- Avoid predicting excessive or unrealistic thrashings (like 7-0 or 8-1) unless the difference in goals scored/conceded statistics and ELO is truly abysmal and extreme.
+- If the teams are evenly matched, be moderate with goals (e.g., 1-0, 1-1, 1-2, 2-1).
 
-Devuelve ÚNICAMENTE este JSON (sin markdown, sin texto extra):
+Return ONLY this JSON (no markdown, no extra text):
 {{"home_win": 0.XX, "draw": 0.XX, "away_win": 0.XX, "predicted_home_goals": X, "predicted_away_goals": Y}}
-Donde "home_win", "draw" y "away_win" son las probabilidades decimales que deben sumar exactamente 1.0, y "predicted_home_goals" y "predicted_away_goals" son la predicción del número entero de goles más probable para cada equipo.
+Where "home_win", "draw", and "away_win" are decimal probabilities that must sum exactly 1.0, and "predicted_home_goals" and "predicted_away_goals" are the prediction of the most likely integer number of goals for each team.
 """
 
     response = await client.chat.completions.create(

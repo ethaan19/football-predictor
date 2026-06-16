@@ -1,15 +1,15 @@
 """
 features.py
 -----------
-Ingeniería de características para el modelo de predicción de fútbol.
+Feature engineering for the football match predictor model.
 
-Calcula para cada partido:
-  - Rating ELO dinámico (actualizado partido a partido)
-  - Forma reciente (últimos N partidos)
-  - Estadísticas ofensivas/defensivas recientes
-  - Historial head-to-head
+Computes for each match:
+  - Dynamic ELO rating (updated match-by-match)
+  - Recent form (last N matches)
+  - Recent offensive/defensive statistics
+  - Head-to-head history
 
-Uso:
+Usage:
     from model.features import FeatureEngineer
     fe = FeatureEngineer()
     df_features = fe.build_features(df_matches)
@@ -20,19 +20,19 @@ import pandas as pd
 from collections import defaultdict
 
 
-# ─── Configuración ELO ──────────────────────────────────────────────────────
-ELO_START     = 1500   # Rating inicial de todos los equipos
-ELO_K         = 32     # Factor K (sensibilidad del ELO)
-ELO_HOME_ADV  = 100    # Ventaja de local en ELO
+# ─── ELO Configuration ──────────────────────────────────────────────────────
+ELO_START     = 1500   # Initial rating of all teams
+ELO_K         = 32     # K factor (ELO sensitivity)
+ELO_HOME_ADV  = 100    # Home advantage in ELO
 
-# ─── Ventana de forma reciente ───────────────────────────────────────────────
-FORM_WINDOW   = 5      # Últimos N partidos para calcular la forma
-STATS_WINDOW  = 10     # Últimos N partidos para estadísticas de goles
-H2H_WINDOW    = 10     # Últimos N enfrentamientos directos
+# ─── Recent Form Window ───────────────────────────────────────────────
+FORM_WINDOW   = 5      # Last N matches to compute form
+STATS_WINDOW  = 10     # Last N matches for goal stats
+H2H_WINDOW    = 10     # Last N head-to-head matches
 
 
 class EloCalculator:
-    """Calcula ratings ELO dinámicos para todos los equipos."""
+    """Computes dynamic ELO ratings for all teams."""
 
     def __init__(self, k: float = ELO_K, home_adv: float = ELO_HOME_ADV):
         self.k = k
@@ -44,24 +44,24 @@ class EloCalculator:
 
     def update(self, home_team: str, away_team: str, result: str) -> tuple[float, float]:
         """
-        Actualiza los ratings ELO y devuelve los ratings ANTES del partido
-        (para usar como features sin data leakage).
+        Updates ELO ratings and returns ratings BEFORE the match
+        (to use as features without data leakage).
         """
         r_home = self.ratings[home_team]
         r_away = self.ratings[away_team]
 
-        # Ratings antes del partido (los que se usan como feature)
+        # Ratings before the match (used as features)
         pre_home = r_home
         pre_away = r_away
 
-        # Resultado real: 1=victoria local, 0.5=empate, 0=victoria visitante
+        # Real result: 1=home win, 0.5=draw, 0=away win
         actual = {"H": 1.0, "D": 0.5, "A": 0.0}[result]
 
-        # Resultado esperado (con ventaja de local)
+        # Expected outcome (with home advantage)
         exp_home = self.expected_score(r_home + self.home_adv, r_away)
         exp_away = 1 - exp_home
 
-        # Actualizar ratings
+        # Update ratings
         self.ratings[home_team] = r_home + self.k * (actual - exp_home)
         self.ratings[away_team] = r_away + self.k * ((1 - actual) - exp_away)
 
@@ -69,15 +69,15 @@ class EloCalculator:
 
 
 class FeatureEngineer:
-    """Construye el DataFrame de features a partir de los partidos históricos."""
+    """Builds the features DataFrame from historical matches."""
 
     def build_features(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Entrada: DataFrame con columnas
+        Input: DataFrame with columns
             [match_id, date, league, season, home_team, away_team,
              home_goals, away_goals, result]
 
-        Salida: DataFrame con features ML listo para entrenamiento.
+        Output: DataFrame with ML features ready for training.
         """
         df = df.copy().sort_values("date").reset_index(drop=True)
 
@@ -92,14 +92,14 @@ class FeatureEngineer:
             away = match["away_team"]
             result = match["result"]
 
-            # ── ELO antes del partido ────────────────────────────────────────
+            # ── ELO before the match ────────────────────────────────────────
             elo_home, elo_away = elo_calc.update(home, away, result)
 
-            # ── Forma reciente ───────────────────────────────────────────────
+            # ── Recent form ───────────────────────────────────────────────
             home_form = self._get_form(team_history[home], FORM_WINDOW)
             away_form = self._get_form(team_history[away], FORM_WINDOW)
 
-            # ── Estadísticas de goles ────────────────────────────────────────
+            # ── Goal statistics ────────────────────────────────────────
             home_stats = self._get_goal_stats(team_history[home], STATS_WINDOW)
             away_stats = self._get_goal_stats(team_history[away], STATS_WINDOW)
 
@@ -108,7 +108,7 @@ class FeatureEngineer:
             h2h = self._get_h2h(h2h_history[h2h_key], home, H2H_WINDOW)
 
             row = {
-                # Identificadores (no se usan como features)
+                # Identifiers (not used as features)
                 "match_id":   match["match_id"],
                 "date":       match["date"],
                 "home_team":  home,
@@ -136,7 +136,7 @@ class FeatureEngineer:
             }
             rows.append(row)
 
-            # Actualizar historial con el resultado de este partido
+            # Update history with the result of this match
             home_record = {
                 "goals_scored": match["home_goals"],
                 "goals_conceded": match["away_goals"],
@@ -167,13 +167,13 @@ class FeatureEngineer:
             return 3 if side == "H" else 0
         elif result == "A":
             return 0 if side == "H" else 3
-        return 1  # Empate
+        return 1  # Draw
 
     @staticmethod
     def _get_form(history: list[dict], window: int) -> dict:
         recent = history[-window:] if len(history) >= window else history
         if not recent:
-            return {"pts": 1.5, "gd": 0.0}  # Valor neutral si no hay historial
+            return {"pts": 1.5, "gd": 0.0}  # Neutral value if no history
         return {
             "pts": np.mean([r["pts"] for r in recent]),
             "gd":  np.mean([r["gd"] for r in recent]),

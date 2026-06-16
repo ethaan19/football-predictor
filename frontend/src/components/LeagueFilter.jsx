@@ -18,7 +18,7 @@ export default function LeagueFilter({ selected, onChange }) {
       <button
         className={`league-btn ${!selected ? "active" : ""}`}
         onClick={() => onChange(null)}
-        title="Todas las ligas"
+        title="All leagues"
       >
         <div className="league-logo-wrapper">
           <span className="league-icon">🌐</span>

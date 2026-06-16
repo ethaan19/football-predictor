@@ -23,7 +23,7 @@ export default function LoadingOverlay({ homeTeam, awayTeam }) {
 
         <div className="loading-progress">
           <div className="loading-status">
-            ANALIZANDO
+            ANALYZING
             <span className="loading-dots">
               <span>.</span><span>.</span><span>.</span>
             </span>
@@ -31,7 +31,7 @@ export default function LoadingOverlay({ homeTeam, awayTeam }) {
           <div className="loading-track">
             <div className="loading-bar" />
           </div>
-          <div className="loading-detail">Procesando con Azure AI Foundry</div>
+          <div className="loading-detail">Processing with Azure AI Foundry</div>
         </div>
       </div>
     </div>

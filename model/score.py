@@ -1,10 +1,10 @@
 """
 score.py
 --------
-Script de inferencia para el Azure ML Managed Online Endpoint.
-Azure ML llama a init() al arrancar el contenedor y a run() en cada petición.
+Inference script for the Azure ML Managed Online Endpoint.
+Azure ML calls init() when the container starts and run() on each request.
 
-Este fichero se despliega junto con el modelo en Azure AI Foundry.
+This file is deployed along with the model in Azure AI Foundry.
 """
 
 import os
@@ -28,25 +28,25 @@ FEATURE_COLS = [
 
 
 def init():
-    """Carga el modelo cuando el endpoint arranca. Azure ML lo llama una vez."""
+    """Loads the model when the endpoint starts. Azure ML calls it once."""
     global model
 
-    # Azure ML inyecta la ruta al directorio del modelo aquí
+    # Azure ML injects the path to the model directory here
     model_dir = os.environ.get("AZUREML_MODEL_DIR", ".")
     model_path = os.path.join(model_dir, "artifacts", "xgboost_model.pkl")
 
-    logger.info(f"Cargando modelo desde {model_path}")
+    logger.info(f"Loading model from {model_path}")
     with open(model_path, "rb") as f:
         model = pickle.load(f)
 
-    logger.info("Modelo cargado correctamente.")
+    logger.info("Model loaded successfully.")
 
 
 def run(raw_data: str) -> str:
     """
-    Realiza la predicción.
+    Performs the prediction.
 
-    Entrada (JSON string):
+    Input (JSON string):
     {
         "features": {
             "home_elo": 1620,
@@ -55,7 +55,7 @@ def run(raw_data: str) -> str:
         }
     }
 
-    Salida (JSON string):
+    Output (JSON string):
     {
         "home_win": 0.48,
         "draw": 0.24,
@@ -66,10 +66,10 @@ def run(raw_data: str) -> str:
         data = json.loads(raw_data)
         features = data["features"]
 
-        # Construir vector de features en el orden correcto
+        # Build feature vector in the correct order
         X = np.array([[features.get(col, 0.0) for col in FEATURE_COLS]])
 
-        # Predecir probabilidades
+        # Predict probabilities
         proba = model.predict_proba(X)[0]
 
         result = {
@@ -81,5 +81,5 @@ def run(raw_data: str) -> str:
         return json.dumps(result)
 
     except Exception as e:
-        logger.error(f"Error en inferencia: {e}")
+        logger.error(f"Inference error: {e}")
         return json.dumps({"error": str(e)})

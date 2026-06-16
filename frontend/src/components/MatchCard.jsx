@@ -8,7 +8,7 @@ export default function MatchCard({ homeTeam, awayTeam, prediction }) {
           <TeamCrest name={homeTeam?.name} size={64} />
         </div>
         <div className="mc-name">{homeTeam?.name}</div>
-        <div className="mc-role">Local</div>
+        <div className="mc-role">Home</div>
       </div>
 
       <div className="mc-center">
@@ -21,7 +21,7 @@ export default function MatchCard({ homeTeam, awayTeam, prediction }) {
         ) : (
           <div className="mc-vs">VS</div>
         )}
-        <div className="mc-date">Predicción</div>
+        <div className="mc-date">Prediction</div>
       </div>
 
       <div className="mc-team away">
@@ -29,7 +29,7 @@ export default function MatchCard({ homeTeam, awayTeam, prediction }) {
           <TeamCrest name={awayTeam?.name} size={64} />
         </div>
         <div className="mc-name">{awayTeam?.name}</div>
-        <div className="mc-role">Visitante</div>
+        <div className="mc-role">Away</div>
       </div>
     </div>
   );

@@ -70,7 +70,7 @@ export default function TeamSelector({ label, side, value, onChange, excludeTeam
             <span className="selector-team-name">{value.name}</span>
           </div>
         ) : (
-          <span className="placeholder">Elige un equipo…</span>
+          <span className="placeholder">Choose a team…</span>
         )}
         <span className="chevron">{open ? "▲" : "▼"}</span>
       </button>
@@ -79,14 +79,14 @@ export default function TeamSelector({ label, side, value, onChange, excludeTeam
         <div className="dropdown">
           <input
             className="search-input"
-            placeholder="Buscar equipo..."
+            placeholder="Search team..."
             value={search}
             onChange={e => setSearch(e.target.value)}
             autoFocus
           />
           <ul className="team-list">
             {filtered.length === 0 && (
-              <li className="no-results">Sin resultados</li>
+              <li className="no-results">No results</li>
             )}
             {filtered.map(team => (
               <li

@@ -1,4 +1,4 @@
-**[Leer en español 🇪🇸](docs/README.md)**
+**[🇪🇸 Leer en español](docs/README.md)**
 
 # ⚽ Football Match Predictor — Azure AI Foundry
 

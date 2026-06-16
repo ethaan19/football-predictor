@@ -1,6 +1,6 @@
 🌐 **[English Version](../README.md)**
 
-# ⚽ Predictor de Partidos de Fútbol — Azure AI Foundry
+# ⚽ Predicción de Partidos de Fútbol — Azure AI Foundry
 
 > Predicción de resultados de partidos de fútbol potenciada por GPT-4o-mini desplegado en Azure AI Foundry
 

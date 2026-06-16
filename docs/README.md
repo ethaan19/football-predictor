@@ -1,9 +1,8 @@
-**[Leer en español 🇪🇸](documentation/README.md)**
+🌐 **[English Version](../README.md)**
 
-# ⚽ Football Match Predictor — Azure AI Foundry
+# ⚽ Predictor de Partidos de Fútbol — Azure AI Foundry
 
-> Football match outcome prediction powered by GPT-4o-mini deployed on Azure AI Foundry
-
+> Predicción de resultados de partidos de fútbol potenciada por GPT-4o-mini desplegado en Azure AI Foundry
 
 [![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)](https://python.org)
 [![Azure](https://img.shields.io/badge/Azure-AI%20Foundry-0078D4?logo=microsoftazure)](https://azure.microsoft.com)
@@ -17,89 +16,89 @@
 
 ---
 
-## 📌 Description
+## 📌 Descripción
 
-Full-stack application that predicts the outcome of a football match between two selected teams. The user picks a home and away team from the top 5 European leagues, and the system returns win probabilities for each possible outcome using **GPT-4o-mini** deployed as a managed endpoint on **Azure AI Foundry**.
+Aplicación full-stack que predice el resultado de un partido de fútbol entre dos equipos seleccionados. El usuario elige un equipo local y uno visitante de las 5 principales ligas europeas, y el sistema devuelve las probabilidades de victoria para cada resultado posible utilizando **GPT-4o-mini** desplegado como un endpoint administrado en **Azure AI Foundry**.
 
-The prediction returns probabilities for four outcomes:
-- ⚽ **Goals from each team (Home and Away)**
-- 🏆 **Home team victory**
-- 🤝 **Draw**
-- 🏆 **Away team victory**
+La predicción devuelve probabilidades para cuatro resultados:
+- ⚽ **Goles de cada equipo (Local y Visitante)**
+- 🏆 **Victoria del equipo local**
+- 🤝 **Empate**
+- 🏆 **Victoria del equipo visitante**
 
-Team statistics (dynamic ELO rating, recent form, goals average) are automatically computed from real match data fetched from the **football-data.org API**.
+Las estadísticas de los equipos (clasificación ELO dinámica, racha reciente, promedio de goles) se calculan automáticamente a partir de datos reales de partidos obtenidos de la **API football-data.org**.
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Arquitectura
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      FRONTEND (React)                        │
-│          Team selection → Prediction visualization          │
+│          Selección de equipos → Visualización de predicción │
 └───────────────────────┬─────────────────────────────────────┘
                         │ HTTP REST
 ┌───────────────────────▼─────────────────────────────────────┐
 │                    BACKEND (FastAPI)                         │
-│          Business logic + Feature Engineering               │
+│          Lógica de negocio + Ingeniería de características  │
 └───────────────────────┬─────────────────────────────────────┘
                         │ Azure OpenAI REST API
 ┌───────────────────────▼─────────────────────────────────────┐
 │                  AZURE AI FOUNDRY                            │
 │   ┌─────────────────────────────────────────────────────┐   │
-│   │         GPT-4o-mini Managed Endpoint                │   │
-│   │   Input: team stats + match context                 │   │
-│   │   Output: { home_win, draw, away_win }              │   │
+│   │         Endpoint Administrado GPT-4o-mini           │   │
+│   │   Entrada: estadísticas de equipo + contexto partido │   │
+│   │   Salida: { home_win, draw, away_win }              │   │
 │   └─────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
                         │
 ┌───────────────────────▼─────────────────────────────────────┐
-│                    MATCH DATA                                │
-│   football-data.org API — Top 5 European leagues            │
-│   110 teams · 3,500+ matches · Seasons 2024–2026            │
+│                    DATOS DE PARTIDOS                        │
+│   API football-data.org — 5 principales ligas europeas      │
+│   110 equipos · 3,500+ partidos · Temporadas 2024–2026      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🧠 How It Works
+## 🧠 Cómo funciona
 
-### Team Features
-Each team is profiled with the following stats, computed from real historical match data:
+### Características de los Equipos
+Cada equipo se perfila con las siguientes estadísticas, calculadas a partir de datos históricos reales de partidos:
 
-| Feature | Description |
-|---------|-------------|
-| `elo` | Dynamic ELO rating (updated after every match) |
-| `form_pts` | Average points per game — last 10 matches |
-| `form_gd` | Average goal difference — last 10 matches |
-| `goals_avg` | Average goals scored — last 10 matches |
-| `conceded_avg` | Average goals conceded — last 10 matches |
+| Característica | Descripción |
+|----------------|-------------|
+| `elo` | Clasificación ELO dinámica (actualizada después de cada partido) |
+| `form_pts` | Promedio de puntos por partido — últimos 10 partidos |
+| `form_gd` | Promedio de diferencia de goles — últimos 10 partidos |
+| `goals_avg` | Promedio de goles anotados — últimos 10 partidos |
+| `conceded_avg` | Promedio de goles concedidos — últimos 10 partidos |
 
-### AI Model: GPT-4o-mini on Azure AI Foundry
-The backend sends a structured prompt with both teams' stats to the GPT-4o-mini endpoint. The model acts as a football analyst and returns a JSON with the three outcome probabilities.
+### Modelo de IA: GPT-4o-mini en Azure AI Foundry
+El backend envía un prompt estructurado con las estadísticas de ambos equipos al endpoint GPT-4o-mini. El modelo actúa como analista de fútbol y devuelve un JSON con las tres probabilidades de resultado.
 
 ```
-Team stats → Prompt engineering → Azure AI Foundry (GPT-4o-mini) → Probabilities
+Estadísticas equipo → Ingeniería de prompts → Azure AI Foundry (GPT-4o-mini) → Probabilidades
 ```
 
 ---
 
-## 🚀 Installation & Usage
+## 🚀 Instalación y Uso
 
-### Prerequisites
+### Requisitos previos
 - Python 3.13+
 - Node.js 18+
-- Azure account with an Azure AI Foundry resource
-- Free API key from [football-data.org](https://www.football-data.org/)
+- Cuenta de Azure con un recurso de Azure AI Foundry
+- Clave de API gratuita de [football-data.org](https://www.football-data.org/)
 
-### 1. Clone the repository
+### 1. Clonar el repositorio
 ```bash
 git clone https://github.com/YOUR_USERNAME/football-predictor.git
 cd football-predictor
 ```
 
-### 2. Set up environment variables
-Create a `.env` file in the root folder:
+### 2. Configurar variables de entorno
+Crea un archivo `.env` en la carpeta raíz:
 ```
 FOOTBALL_DATA_API_KEY=your_api_key
 
@@ -110,33 +109,33 @@ AZURE_OPENAI_DEPLOYMENT=gpt-4o-mini
 CORS_ORIGINS=http://localhost:5173
 ```
 
-### 3. Fetch match data & generate team stats
+### 3. Obtener datos de partidos y generar estadísticas de equipos
 ```bash
-python data/collect_data.py       # Downloads current season matches
-python data/generate_teams.py     # Computes team stats → teams.json
+python data/collect_data.py       # Descarga partidos de la temporada actual
+python data/generate_teams.py     # Calcula estadísticas de equipos → teams.json
 ```
 
-### 4. Launch the backend
+### 4. Iniciar el backend
 ```bash
 cd backend
-py -m venv venv
+python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-### 5. Launch the frontend
+### 5. Iniciar el frontend
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Open `http://localhost:5173` 🎉
+Abre `http://localhost:5173` 🎉
 
 ---
 
-## 📁 Project Structure
+## 📁 Estructura del Proyecto
 
 ```
 football-predictor/
@@ -145,13 +144,13 @@ football-predictor/
 ├── docker-compose.yml
 │
 ├── data/
-│   ├── collect_data.py       # Fetches matches from football-data.org
-│   └── generate_teams.py     # Computes ELO + stats → teams.json
+│   ├── collect_data.py       # Obtiene partidos de football-data.org
+│   └── generate_teams.py     # Calcula ELO + estadísticas de racha → teams.json
 │
 ├── backend/
-│   ├── main.py               # FastAPI app (REST endpoints)
-│   ├── predictor.py          # Azure AI Foundry client (GPT-4o-mini)
-│   ├── team_data.py          # Loads team catalog from teams.json
+│   ├── main.py               # Aplicación FastAPI (endpoints REST)
+│   ├── predictor.py          # Cliente de Azure AI Foundry (GPT-4o-mini)
+│   ├── team_data.py          # Carga el catálogo de equipos de teams.json
 │   └── requirements.txt
 │
 ├── frontend/
@@ -171,17 +170,17 @@ football-predictor/
 │
 └── .github/
     └── workflows/
-        └── ci.yml            # GitHub Actions CI
+        └── ci.yml            # CI de GitHub Actions
 ```
 
 ---
 
-## 🔌 API Reference
+## 🔌 Referencia de la API
 
 ### `POST /api/predict`
-Predicts the outcome of a match between two teams.
+Predice el resultado de un partido entre dos equipos.
 
-**Request:**
+**Petición:**
 ```json
 {
   "home_team": "Real Madrid CF",
@@ -189,7 +188,7 @@ Predicts the outcome of a match between two teams.
 }
 ```
 
-**Response:**
+**Respuesta:**
 ```json
 {
   "home_team": "Real Madrid CF",
@@ -203,27 +202,27 @@ Predicts the outcome of a match between two teams.
 ```
 
 ### `GET /api/teams`
-Returns the full list of available teams with their league.
+Devuelve la lista completa de equipos disponibles con su liga.
 
 ### `GET /api/leagues`
-Returns all available leagues with their teams.
+Devuelve todas las ligas disponibles con sus equipos.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tecnologías utilizadas
 
-| Layer | Technology |
+| Capa | Tecnología |
 |-------|-----------|
-| **Frontend** | React 18, Vite, Custom CSS |
+| **Frontend** | React 18, Vite, CSS Personalizado |
 | **Backend** | Python 3.13, FastAPI, Uvicorn |
-| **AI** | GPT-4o-mini on Azure AI Foundry |
-| **Data** | football-data.org REST API |
-| **Data Processing** | Pandas, NumPy (ELO + form stats) |
+| **IA** | GPT-4o-mini en Azure AI Foundry |
+| **Datos** | API REST football-data.org |
+| **Procesamiento de Datos** | Pandas, NumPy (ELO + estadísticas de racha) |
 | **DevOps** | Docker, GitHub Actions |
 
 ---
 
-## 👤 Author
+## 👤 Autor
 
 **Ethan Macias**
 

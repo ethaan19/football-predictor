@@ -116,6 +116,8 @@ python data/generate_teams.py     # Computes team stats → teams.json
 ### 4. Launch the backend
 ```bash
 cd backend
+py -m venv venv
+.\venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
